@@ -17,6 +17,7 @@ void checkGLError(const char* funcName, const char* fileName, int line) {
     GLenum error;
     while ((error = glGetError()) != GL_NO_ERROR) {
         printf("OpenGL error %d in %s at line %d: %s\n", error, fileName, line, funcName);
+        exit(1);
     }
 }
 
@@ -209,17 +210,22 @@ int main() {
 
     printf("%s\n",glGetString(GL_VERSION));
 
+    printf("Vertex--\n");
     // Load and compile the vertex shader
     GLuint vertexShader = createShader(GL_VERTEX_SHADER, vertexShaderCode);
 
+    printf("Fragment--\n");
     // Load and compile the fragment shader
     GLuint fragmentShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
 
+    printf("Program+Link--\n");
     // Create and link the shader program
     GLuint shaderProgram = glCreateProgram();
     GLES_CALL(glAttachShader(shaderProgram, vertexShader));
     GLES_CALL(glAttachShader(shaderProgram, fragmentShader));
     GLES_CALL(glLinkProgram(shaderProgram));
+
+    printf("--Shader Compilation OK\n");
 
     // Use the shader program
     GLES_CALL(glUseProgram(shaderProgram));
