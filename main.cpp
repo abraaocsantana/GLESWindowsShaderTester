@@ -71,7 +71,7 @@ int main() {
     wc.lpfnWndProc = [](HWND hwnd,
                         UINT uMsg,
                         WPARAM wParam,
-                        LPARAM lParam) -> LRESULT CALLBACK {
+                        LPARAM lParam) -> LRESULT {
       switch (uMsg) {
         case WM_CLOSE:
           DestroyWindow(hwnd);
